@@ -1,7 +1,7 @@
 /*
 Lab Task
 
-Dynamic Inventory Management(ID Dynamic Array)
+Dynamic Inventory Management(1D Dynamic Array)
 
  Background: You are building an inventory management system for a small store. The store sells a
  variable number of products, and the inventory needs to be updated dynamically.
@@ -21,141 +21,157 @@ Dynamic Inventory Management(ID Dynamic Array)
  added or removed dynamically, and quantities need to be updated.
 
 */
-
 #include <iostream>
-#include 
+#include <new>
 using namespace std;
 
-// Function to display inventory
-void displayInventory(int* inventory, int size) 
-{
-    cout << "\nCurrent Inventory:\n";
-    for (int i = 0; i < size; i++) 
-	{
-        cout << "Product " << i + 1 << ": " << inventory[i] << " units\n";
-    }
-}
+//Function prototypes
+void addProduct(int*&,int&,int);
+void remProduct(int*&,int&,int);
+void updProduct(int*&,int,int,int);
+void disProduct(int*,int);
 
-// Function to add a new product
-void addProduct(int*& inventory, int& size, int quantity) 
+//Main Function
+int main()
 {
-    int* newInventory = new int[size + 1]; // Allocate new larger array
-    for (int i = 0; i < size; i++) 
+	int num;
+	cout<<"Enter the number of the products in the store:";
+	cin>>num;
+	int* inventory=new int[num];
+	cout<<"\nEnter initial quantities of each product:\n";
+	for (int i=0;i<num;i++)
 	{
-        newInventory[i] = inventory[i]; // Copy old data
-    }
-    newInventory[size] = quantity; // Add new product quantity
-    delete[] inventory; // Free old memory
-    inventory = newInventory; // Update pointer
-    size++;
-}
-
-// Function to remove a product
-void removeProduct(int*& inventory, int& size, int index) 
-{
-    if (index < 0 || index >= size) 
+		cout<<"\nProduct "<<i+1<<" :";
+		cin>>inventory[i];
+	}
+	
+	char ch;
+	do
 	{
-        cout << "Invalid product index!\n";
-        return;
-    }
-    
-    int* newInventory = new int[size - 1]; // Allocate smaller array
-    for (int i = 0, j = 0; i < size; i++) 
-	{
-        if (i != index) 
+		cout<<"\n======================================================\n";
+		cout<<"\nChoose one of the following options... \n\n";
+		cout<<"A - add new product.\n";
+		cout<<"R - remove a product.\n";
+		cout<<"U - update a product.\n";
+		cout<<"D - display the current inventory.\n";
+		cout<<"E - exit the program.\n";
+		cout<<"\n======================================================\n";
+		cout<<"Enter your choice :";
+		cin>>ch;
+		ch=tolower(ch);
+		switch(ch)
 		{
-            newInventory[j++] = inventory[i]; // Copy all except the removed one
-        }
-    }
-    delete[] inventory; // Free old memory
-    inventory = newInventory; // Update pointer
-    size--;
+			case 'a':
+				{
+					int quantity;
+					cout<<"\nEnter the quantity of the new product :";
+					cin>>quantity;
+					//calling the add function
+					addProduct(inventory,num,quantity);
+					break;
+				}
+			case 'r':
+				{
+					int index;
+					cout<<"\nEnter index of the product that you want to remove:";
+					cin>>index;
+					//Function calling to remove a product
+					remProduct(inventory,num, index);
+					break;
+				}
+			case 'u':
+				{
+					int index, quantity;
+					cout<<"\nEnter index of product that you want to update :";
+					cin>>index;
+					cout<<"\nEnter new quantity of the product :";
+					cin>>quantity;
+					//Function calling for updating inventory
+					updProduct(inventory,num,index,quantity);
+					break;
+				}
+			case 'd':
+				{
+					//function calling to display inventory
+					disProduct(inventory,num);
+					break;
+				}
+			case 'e':
+				{
+					cout<<"\nExiting...";
+					break;
+				}
+			default:
+				{
+					cout<<"\nInvalid input. Please try again!";
+				}
+		}
+	}while(ch !='e');
+	
+	delete[] inventory;
+	return 0;
 }
 
-// Function to update product quantity
-void updateProduct(int* inventory, int size, int index, int newQuantity) 
+//////////Add Function//////////
+void addProduct(int*& inventory, int& size, int quantity)
 {
-    if (index < 0 || index >= size) 
+	int* newinventory=new int[size+1];
+	for(int i=0;i<size;i++)
 	{
-        cout << "Invalid product index!\n";
-        return;
-    }
-    inventory[index] = newQuantity;
+		newinventory[i]=inventory[i];
+	}
+	newinventory[size]=quantity;
+	delete[] inventory;
+	inventory=newinventory;               
+	size++;
+	
 }
 
-int main() 
+//////////Display Function//////////
+void disProduct(int* inventory, int size)
 {
-    int size;
-    cout << "Enter number of products: ";
-    cin >> size;
-
-    // Dynamic memory allocation for inventory
-    int* inventory = new int[size];
-
-    // Taking initial product quantities
-    cout << "Enter initial quantities of products:\n";
-    for (int i = 0; i < size; i++) {
-        cout << "Product " << i + 1 << ": ";
-        cin >> inventory[i];
-    }
-
-    int choice;
-    do {
-        cout << "\nInventory Management System\n";
-        cout << "1. Display Inventory\n";
-        cout << "2. Add Product\n";
-        cout << "3. Remove Product\n";
-        cout << "4. Update Product Quantity\n";
-        cout << "5. Exit\n";
-        cout << "Enter choice: ";
-        cin >> choice;
-
-        switch (choice) 
-		{
-            case 1:
-                displayInventory(inventory, size);
-                break;
-            case 2: 
-			{
-                int quantity;
-                cout << "Enter quantity of new product: ";
-                cin >> quantity;
-                addProduct(inventory, size, quantity);
-                cout << "Product added successfully!\n";
-                break;
-            }
-            case 3: 
-			{
-                int index;
-                cout << "Enter product index to remove (1-based index): ";
-                cin >> index;
-                removeProduct(inventory, size, index - 1);
-                cout << "Product removed successfully!\n";
-                break;
-            }
-            case 4: 
-			{
-                int index, newQuantity;
-                cout << "Enter product index to update (1-based index): ";
-                cin >> index;
-                cout << "Enter new quantity: ";
-                cin >> newQuantity;
-                updateProduct(inventory, size, index - 1, newQuantity);
-                cout << "Product quantity updated!\n";
-                break;
-            }
-            case 5:
-                cout << "Exiting system...\n";
-                break;
-            default:
-                cout << "Invalid choice! Try again.\n";
-        }
-
-    } while (choice != 5);
-
-    // Free allocated memory
-    delete[] inventory;
-    
-    return 0;
+	cout<<"\nDisplaying quantities...";
+	for (int i=0;i<size;i++)
+	{
+		cout<<"\nProduct "<<i+1<<" :";
+		cout<<inventory[i];
+	}
 }
 
+//////////Remove Function//////////
+void remProduct(int*& inventory,int& size, int index)
+{
+	int* newinventory=new int[size-1];
+	if(index<0 || index>=size)
+	{
+		cout<<"\nInvalid index.\n";
+		return;
+	}
+	for(int i=0,j=0;i<size;i++)
+	{
+		if(i!=index)
+		{
+			newinventory[j++]=inventory[i];
+		}
+	}
+	delete[] inventory;
+	inventory=newinventory;
+	size--;
+}
+
+//////update function///////
+void updProduct(int*& inventory, int size,int index, int quantity)
+{
+	if(index<0 || index>=size)
+	{
+		cout<<"\nInvalid index.\n";
+		return;
+	}
+	for(int i=0;i<size;i++)
+	{
+		if(i==index)
+		{
+			inventory[i]=quantity;
+		}
+	}
+}

@@ -21,80 +21,111 @@
  stored in a tabular format and processed for insights
 */
 
+
+
+
 #include <iostream>
-#include <new>
+#include<new>
 using namespace std;
-
-int main() 
+int main()
 {
-    int days;
-    
-    // Step 1: Ask for the number of days
-    cout << "Enter the number of days in the month (28, 30, or 31): ";
-    cin >> days;
-
-    // Step 2: Dynamically allocate 2D array (days x 3)
-    double** temperatures = new double*[days];
-    for (int i = 0; i < days; i++) 
+	int days;
+	cout<<"Enter the number of days in the month (e.g., 28,29,30 or 31) : ";
+	cin>>days;
+	/*
+	Dynamically allocate a 2D array to store the temperature data for each day 
+ 	(rows = days, columns= 3 for min, max, and average temperature).
+	*/
+	float ** temperature=new float*[days];
+	for(int i=0;i<days;i++)
 	{
-        temperatures[i] = new double[3]; // 3 columns: min, max, avg temp
-    }
-
-    // Step 3: Populate the array with user input
-    cout << "Enter temperature data (Min, Max, Avg) for each day:\n";
-    for (int i = 0; i < days; i++) 
+		temperature[i]=new float[3]; //as we have 3 number of columns in each row
+		
+	}
+	cout<<"\nEnter temperatures...\n";
+	
+	for(int i=0;i<days;i++)
 	{
-        cout << "Day " << i + 1 << " -> Min: ";
-        cin >> temperatures[i][0];
-        cout << "         Max: ";
-        cin >> temperatures[i][1];
-        cout << "         Avg: ";
-        cin >> temperatures[i][2];
-    }
-
-    // Step 4: Analysis
-
-    // Finding the hottest and coldest day
-    int hottestDay = 0, coldestDay = 0;
-    for (int i = 1; i < days; i++) 
-	{
-        if (temperatures[i][1] > temperatures[hottestDay][1]) 
-            hottestDay = i;
-        if (temperatures[i][0] < temperatures[coldestDay][0]) 
-            coldestDay = i;
-    }
-
-    // Calculating monthly average temperature
-    double totalAvgTemp = 0;
-    for (int i = 0; i < days; i++) 
-	{
-        totalAvgTemp += temperatures[i][2];
-    }
-    double monthlyAvg = totalAvgTemp / days;
-
-    // Identifying increasing max temperature trends
-    cout << "\nDays with increasing max temperature:\n";
-    for (int i = 1; i < days; i++)
-	 {
-        if (temperatures[i][1] > temperatures[i - 1][1]) 
+		for(int j=0;j<3;j++)
 		{
-            cout << "Day " << i + 1 << " (Max: " << temperatures[i][1] << "°C)\n";
-        }
-    }
-
-    // Display results
-    cout << "\nAnalysis Results:\n";
-    cout << "Hottest day: Day " << hottestDay + 1 << " (Max: " << temperatures[hottestDay][1] << "°C)\n";
-    cout << "Coldest day: Day " << coldestDay + 1 << " (Min: " << temperatures[coldestDay][0] << "°C)\n";
-    cout << "Monthly average temperature: " << monthlyAvg << "°C\n";
-
-    // Step 5: Deallocate memory
-    for (int i = 0; i < days; i++) 
+			if(j==0)
+			{
+				cout<<"Day "<<i+1<<" min : ";
+				cin>>temperature[i][j];
+			}
+			if(j==1)
+			{
+				cout<<"Day "<<i+1<<" max : ";
+				cin>>temperature[i][j];
+			}
+			if(j==2)
+			{
+				cout<<"Day "<<i+1<<" avg : ";
+				cin>>temperature[i][j];
+			}
+			
+		}
+	}
+	
+	//Find the hottest and coldest day of the month.
+	float hottest=temperature[0][1], coldest=temperature[0][0],n=0,m=0;
+	for(int i=0; i<days;i++)
 	{
-        delete[] temperatures[i]; // Delete each row
-    }
-    delete[] temperatures; // Delete the array pointer
-    
-    return 0;
+		for (int j=1;j<2 ;j++ )
+		{
+			if(hottest<temperature[i][j])
+			{
+				hottest=temperature[i][j];
+				n=i;
+			}
+		}
+		for (int j=0;j<1 ;j++ )
+		{
+			if(coldest>temperature[i][j])
+			{
+				coldest=temperature[i][j];
+				m=i;
+			}
+		}
+	}
+	cout<<"\n\nHottest temperature of the month is "<<hottest <<" at day "<<n+1<<".";
+	cout<<"\nColdest temperature of the month is "<<coldest <<" at day "<<m+1<<".";
+	
+	//Calculate the monthly average temperature.
+	float sumAvg=0,monthlyAvg=0;
+	
+	for(int i=0; i<days;i++)
+	{
+		for (int j=2;j<3 ;j++ )
+		{
+			sumAvg+=temperature[i][j];
+		}
+	}
+	monthlyAvg=sumAvg/days;
+	cout<<"\n\nMonthly average temperature is "<<monthlyAvg<<".";
+	
+	//Display the temperature trends (e.g., days with increasing max temperature).
+	bool trendfound= false;
+	for(int i=1;i<days;i++)
+	{
+		if(temperature[i][1]>temperature[i-1][1])
+		{
+			trendfound=true;
+			cout<<"\n\nDay "<<i+1 <<" temperature "<<temperature[i][1]<<" °C > Day "<<i<<" temperature "<<temperature[i-1][1]<<" °C.";
+		}
+	}
+	if(!trendfound)
+	{
+		cout<<"\nNo trend found!";
+	}
+	
+	for(int i=0;i<days;i++)
+	{
+		delete[] temperature[i];
+	}
+	delete[] temperature;
+	
+	return 0;
+	
 }
 
