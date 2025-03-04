@@ -131,6 +131,11 @@ void addProduct(int*& inventory, int& size, int quantity)
 void disProduct(int* inventory, int size)
 {
 	cout<<"\nDisplaying quantities...";
+	if(size<0)
+	{
+		cout<<"\nInventory is empty.";
+	}
+	
 	for (int i=0;i<size;i++)
 	{
 		cout<<"\nProduct "<<i+1<<" :";

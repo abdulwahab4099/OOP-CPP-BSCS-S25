@@ -12,9 +12,9 @@
  	(rows = days, columns= 3 for min, max, and average temperature).
  3. Populate the array with user-provided temperature data.
  4. Perform the following analysis:
-	 • Find the hottest and coldest day of the month.
-	 • Calculate the monthly average temperature.
-	 • Display the temperature trends (e.g., days with increasing max temperature).
+	 ï¿½ Find the hottest and coldest day of the month.
+	 ï¿½ Calculate the monthly average temperature.
+	 ï¿½ Display the temperature trends (e.g., days with increasing max temperature).
  5. Deallocate the memory after use.
  
  Real-world connection: This scenario simulates real-world weather data analysis, where data is
@@ -111,7 +111,7 @@ int main()
 		if(temperature[i][1]>temperature[i-1][1])
 		{
 			trendfound=true;
-			cout<<"\n\nDay "<<i+1 <<" temperature "<<temperature[i][1]<<" °C > Day "<<i<<" temperature "<<temperature[i-1][1]<<" °C.";
+			cout<<"\n\nDay "<<i+1 <<" temperature "<<temperature[i][1]<<" ï¿½C > Day "<<i<<" temperature "<<temperature[i-1][1]<<" ï¿½C.";
 		}
 	}
 	if(!trendfound)
@@ -128,4 +128,3 @@ int main()
 	return 0;
 	
 }
-
