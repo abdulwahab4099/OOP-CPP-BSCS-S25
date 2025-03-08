@@ -104,6 +104,7 @@ int main()
 			default:
 				{
 					cout<<"\nInvalid input. Please try again!";
+					break;
 				}
 		}
 	}while(ch !='e');
@@ -177,6 +178,6 @@ void updProduct(int*& inventory, int size,int index, int quantity)
 		if(i==index)
 		{
 			inventory[i]=quantity;
-		}
+		} 
 	}
 }
