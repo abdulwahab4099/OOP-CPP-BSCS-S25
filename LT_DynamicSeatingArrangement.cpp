@@ -68,7 +68,8 @@ int main()
                         }
                         if(id==0)
                         {
-                        	cout<<"\nAttendee's ID can't be '0'. Please enter a non-zero ID.";
+                        	f++;
+							cout<<"\nAttendee's ID can't be '0'. Please enter a non-zero ID.";
                         	break;
 						}
                     }

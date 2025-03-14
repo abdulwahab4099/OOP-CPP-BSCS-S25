@@ -1,0 +1,7 @@
+This is first time I've created a file using C++.
+My name is Abdul Wahab.
+I'm a computer science undergraduate at Quaid-i-Azam University, Islamabad.
+I'm from Faisalabad.
+Right now, I'm learning to code in C++.
+I'm passionate about Artificial Intelligence and Innovation.
+I'm learning and improving my skills day by day.
