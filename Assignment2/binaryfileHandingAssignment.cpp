@@ -1,16 +1,3 @@
-/*
-Assignment 2:
-
-	Impliment the database program using file handling
-	The functions include are
-	>Add data
-	>Display data
-	>Modify data
-	>Search data
-	>Delete data
-	>Sort data
-
-*/
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -34,8 +21,8 @@ void sort();
 int main() {
     int choice, ID;
     do {
-        cout << "\nMain Menu:\n";
-        cout << "1. Add new Data to the file\n2. Display Data from the file\n3. Modify Data in the file\n4. Search Data in the file\n5. Delete Data from the file\n6. Sort Data in the file\n7. Exit\n";
+        cout << "\nDatabase Menu:\n";
+        cout << "1. Add Data\n2. Display Data\n3. Modify Data\n4. Search Data\n5. Delete Data\n6. Sort Data\n7. Exit\n";
         cout << "Enter your choice: ";
         
         if (!(cin >> choice)) {

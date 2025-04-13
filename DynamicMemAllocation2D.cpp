@@ -50,7 +50,6 @@ int main()
 	{
 		delete [] ptr[i];
 	}
-//	
-//	
+//	//	
 	return 0;
  }

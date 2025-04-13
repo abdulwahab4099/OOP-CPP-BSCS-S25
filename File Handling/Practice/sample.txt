@@ -1,0 +1,4 @@
+Hello World!
+My name is Abdul Wahab.
+Isn't it stupid to learn code when AI can code whole big programs for you?
+It really doesn't make any sense to me, why we're still struggling and wasting our time learning code.
