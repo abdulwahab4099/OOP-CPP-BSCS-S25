@@ -117,7 +117,7 @@ public:
     }
 
     // Calculate class average (sum of student averages ÷ number of students)
-    double class_average() {
+    double class_average() {	
         if (student_count == 0) return 0.0;
         double sum = 0.0;
         for (int i = 0; i < student_count; i++) {

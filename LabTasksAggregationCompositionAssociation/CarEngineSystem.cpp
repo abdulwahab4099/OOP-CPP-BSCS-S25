@@ -9,8 +9,7 @@
  Basic Calculations:
 	 (a) Fuel needed for trip: Fuel = Distance × Consumption per km
 	 (b) Trip cost: Cost = Fuel needed ×Price per liter
-	 (c) Speed calculation: Speed = Distance
- Time
+	 (c) Speed calculation: Speed = Distance/Time
  	(d) Fuel efficiency: Efficiency =
  Implementation:
 	 100
